@@ -16,6 +16,11 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+class Task(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    task_name = db.Column(db.String(64))
+
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))

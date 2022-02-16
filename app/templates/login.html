@@ -1,26 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Login</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }} <br>
-            {{ form.username() }}
-            {% for error in form.username.errors %}
-                <span style="color: red">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }} <br>
-            {{ form.password() }}
-            {% for error in form.password.errors %}
-                <span style="color: red">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.sign_in() }}
-        </p>
-    </form>
+  <h1>Login</h1>
+  <form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.username.label }} <br>
+      {{ form.username() }}
+      {% for error in form.username.errors %}
+        <span style="color: red">
+          [{{ error }}]
+        </span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.password.label }} <br>
+      {{ form.password() }}
+      {% for error in form.password.errors %}
+        <span style="color: red">
+          [{{ error }}]
+        </span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.sign_in() }}
+    </p>
+  </form>
 {% endblock %}
 
