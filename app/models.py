@@ -6,6 +6,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    tasks = db.relationship('Task', backref='owner', lazy='dynamic')
 
     def __repr__(self):
         return "<User {}>".format(self.username)
@@ -19,7 +20,11 @@ class User(UserMixin, db.Model):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     task_name = db.Column(db.String(64))
+    status = db.Column(db.String(8))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    def __repr__(self):
+        return "<Task {} | Status {}>".format(self.task_name, self.status)
 
 @login.user_loader
 def load_user(id):

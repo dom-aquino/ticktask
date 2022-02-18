@@ -10,5 +10,8 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 
+from app.api import bp as api_bp
+app.register_blueprint(api_bp)
+
 from app import routes, models
 

@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Welcome to your homepage, {{ user.username }}!</h1>
+  <h1>Welcome to your homepage, {{ user.username }}!</h1>
+  <input v-model="task" placeholder="Enter a task"></input>
+  <button v-on:click="addTask">Add Task</button>
+  <h3>Task List: </h3>
+  <ul v-if="tasks.length">
+    <li v-for="task in tasks">
+        [[ task['name'] ]]
+    </li>
+  </ul>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='home.js') }}"></script>
 {% endblock %}
 

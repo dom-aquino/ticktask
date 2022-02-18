@@ -17,6 +17,7 @@
       <a href="{{ url_for('logout') }}">Logout</a>
     {% endif %}
     <hr>
+    <div id="user_id" hidden>{{ user.id }}</div>
     <div id="app">
       {% block content %}
       {% endblock %}
@@ -31,7 +32,9 @@
       {% endif %}
     {% endwith %}
     <script src="https://unpkg.com/vue@2"></script>
-    <script src="{{ url_for('static', filename='my-component.js') }}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    {% block script %}
+    {% endblock %}
   </body>
 </html>
 

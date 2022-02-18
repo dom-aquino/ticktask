@@ -14,6 +14,6 @@ class RegisterForm(FlaskForm):
     password = PasswordField("Password", validators=[
         DataRequired(), EqualTo("repeat", message="Password must match.")
     ])
-    repeat = PasswordField('Repeat Password')
+    repeat = PasswordField("Repeat Password")
     register = SubmitField("Register")
 
