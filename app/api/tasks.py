@@ -16,10 +16,35 @@ def getTasks(user_id):
 @bp.route("/tasks/add", methods=["POST"])
 @login_required
 def addTask():
-    newTask = Task(task_name=request.json['task'], status="New",
-                   user_id=current_user.id)
-    db.session.add(newTask)
+    task = Task(task_name=request.json['task'], status="New",
+                user_id=current_user.id)
+    db.session.add(task)
     db.session.commit()
 
     return {"status": "success"}
+
+
+@bp.route("/tasks/delete", methods=["POST"])
+@login_required
+def deleteTask():
+    task = Task.query.filter_by(task_name=request.json['task']['name'],
+                                user_id=current_user.id).first()
+    if task:
+        db.session.delete(task)
+        db.session.commit()
+        return {"status": "success"}
+    else:
+        return {"status": "failed"}
+
+
+@bp.route("/tasks/update", methods=["PUT"])
+def updateTask():
+    task = Task.query.filter_by(task_name=request.json['task']['name'],
+                                user_id=current_user.id).first()
+    if task:
+        task.status = request.json['task']['status']
+        db.session.commit()
+        return {"status": "success"}
+    else:
+        return {"status": "failed"}
 

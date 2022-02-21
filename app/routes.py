@@ -18,7 +18,6 @@ def login():
             flash("The username or password is invalid/incorrect. Try again.")
         else:
             login_user(user)
-            flash("Login successful.")
             return redirect(url_for("home"))
     return render_template("login.html", title="Login", form=form)
 
@@ -48,5 +47,5 @@ def register():
 
 @app.route("/home", methods=["GET", "POST"])
 def home():
-    return render_template("home.html", title="Home", user=current_user)
+    return render_template("home.html", title="Home")
 

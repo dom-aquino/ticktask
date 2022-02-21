@@ -34,12 +34,42 @@ home = new Vue({
         })
         .then(response => {
           if (response.data['status'] == "success") {
-            this.tasks.push({name: this.task});
+            this.tasks.push({name: this.task, status: "New"});
             this.task = null;
           }
         })
       }
-    }
-  }
+    },
+    deleteTask(index) {
+      axios({
+        method: 'post',
+        url: 'api/tasks/delete',
+        data: {
+          'task': this.tasks[index]
+        }
+      })
+      .then(response => {
+        if (response.data['status'] == "success") {
+          this.tasks.splice(index, 1);
+        }
+      })
+    },
+    updateStatus(index, status) {
+      var tempTask = this.tasks[index];
+      tempTask['status'] = status;
+      axios({
+        method: 'put',
+        url: 'api/tasks/update',
+        data: {
+          'task': tempTask
+        }
+      })
+      .then(response => {
+        if (response.data['status'] == "success") {
+          this.tasks[index] = tempTask;
+        }
+      })
+    },
+  },
 })
 

@@ -17,7 +17,7 @@
       <a href="{{ url_for('logout') }}">Logout</a>
     {% endif %}
     <hr>
-    <div id="user_id" hidden>{{ user.id }}</div>
+    <div id="user_id" hidden>{{ current_user.id }}</div>
     <div id="app">
       {% block content %}
       {% endblock %}
