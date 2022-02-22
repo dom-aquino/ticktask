@@ -24,21 +24,31 @@ home = new Vue({
       })
     },
     addTask() {
-      if (this.task != null) {
-        axios({
-          method: 'post',
-          url: '/api/tasks/add',
-          data: {
-            'task': this.task
+      this.$buefy.dialog.prompt({
+        message: "Task Name",
+        inputAttrs: {
+          placeholder: 'Enter a task name',
+          maxlength: 128,
+        },
+        trapFocus: true,
+        onConfirm: (task) => {
+          if (task != null) {
+            axios({
+              method: 'post',
+              url: '/api/tasks/add',
+              data: {
+                'task': task
+              }
+            })
+            .then(response => {
+              if (response.data['status'] == "success") {
+                this.tasks.push({name: task, status: "New"});
+                task = null;
+              }
+            })
           }
-        })
-        .then(response => {
-          if (response.data['status'] == "success") {
-            this.tasks.push({name: this.task, status: "New"});
-            this.task = null;
-          }
-        })
-      }
+        }
+      })
     },
     deleteTask(index) {
       axios({

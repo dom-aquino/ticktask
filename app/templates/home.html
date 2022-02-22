@@ -1,26 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Welcome to your homepage, {{ current_user.username }}!</h1>
-  <input v-model="task" placeholder="Enter a task"></input>
-  <button v-on:click="addTask">Add Task</button>
-  <h2>Task List:</h2>
-  [[ tasks ]]
-  <template v-for="status in ['New', 'In Progress', 'Done']">
-    <h3>[[ status ]]</h3>
-    <ul v-for="(task, index) in tasks">
-      <li v-if="task['status'] == status">
-        Index: [[ index ]] | [[ task['name'] ]]
-        <template v-if="status == 'New'">
-          <button v-on:click="updateStatus(index, 'In Progress')">In Progress</button>
-        </template>
-        <template v-else-if="status == 'In Progress'">
-          <button v-on:click="updateStatus(index, 'Done')">Done</button>
-        </template>
-        <button v-on:click="deleteTask(index)">Delete</button>
-      </li>
-    </ul>
-  </template>
+  <div class="buttons">
+    <b-button label="New Task" type="is-dark" @click="addTask"></b-button>
+  </div>
+  <div class="columns">
+    <template v-for="status in ['New', 'In Progress', 'Blocked', 'Done']">
+      <div class="column">
+        <h2>[[ status ]]</h2>
+        <ul v-for="(task, index) in tasks">
+          <li v-if="task['status'] == status">
+            [[ task['name'] ]]
+            <template v-if="status == 'New'">
+              <button v-on:click="updateStatus(index, 'In Progress')">
+                In Progress
+              </button>
+            </template>
+            <template v-else-if="status == 'In Progress'">
+              <button v-on:click="updateStatus(index, 'Done')">
+                Done
+              </button>
+            </template>
+            <button v-on:click="deleteTask(index)">Delete</button>
+          </li>
+        </ul>
+      </div>
+    </template>
+  </div>
 {% endblock %}
 
 {% block script %}

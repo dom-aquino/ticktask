@@ -6,33 +6,52 @@
     {% else %}
       <title>TickTask - Get Things Done</title>
     {% endif %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/style.css') }}">
   </head>
   <body>
-    {% if current_user.is_anonymous %}
-      <a href="{{ url_for('index') }}">Tick Task</a>
-      <a href="{{ url_for('login') }}">Login</a>
-      <a href="{{ url_for('register') }}">Register</a>
-    {% else %}
-      <a href="{{ url_for('home') }}">Home</a>
-      <a href="{{ url_for('logout') }}">Logout</a>
-    {% endif %}
+    <nav class="navbar">
+      <div class="container is-fluid">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="{{ url_for('index') }}">Tick Task</a>
+        </div>
+        <div class="navbar-menu">
+          <div class="navbar-end">
+              <div class="buttons">
+              {% if current_user.is_anonymous %}
+                <a class="navbar-item button is-dark" href="{{ url_for('login') }}">Login</a>
+                <a class="navbar-item button is-dark" href="{{ url_for('register') }}">Register</a>
+              {% else %}
+                <a class="navbar-item button is-dark" href="{{ url_for('home') }}">Home</a>
+                <a class="navbar-item button is-dark" href="{{ url_for('logout') }}">Logout</a>
+              {% endif %}
+              </div>
+          </div>
+        </div>
+      </div>
+    </nav>
     <hr>
-    <div id="user_id" hidden>{{ current_user.id }}</div>
-    <div id="app">
-      {% block content %}
-      {% endblock %}
-    </div>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
     <script src="https://unpkg.com/vue@2"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+    <div id="user_id" hidden>{{ current_user.id }}</div>
+    <div class="container is-fluid">
+      <div id="app">
+        {% block content %}
+        {% endblock %}
+      </div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    </div>
     {% block script %}
     {% endblock %}
   </body>

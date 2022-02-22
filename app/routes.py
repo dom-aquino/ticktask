@@ -47,5 +47,8 @@ def register():
 
 @app.route("/home", methods=["GET", "POST"])
 def home():
-    return render_template("home.html", title="Home")
+    if current_user.is_anonymous:
+        return redirect(url_for("index"))
+    else:
+        return render_template("home.html", title="Home")
 
