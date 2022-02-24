@@ -6,23 +6,45 @@
   </div>
   <div class="columns">
     <template v-for="status in ['New', 'In Progress', 'Blocked', 'Done']">
-      <div class="column">
-        <h2>[[ status ]]</h2>
-        <ul v-for="(task, index) in tasks">
-          <li v-if="task['status'] == status">
-            [[ task['name'] ]]
-            <template v-if="status == 'New'">
-              <button v-on:click="updateStatus(index, 'In Progress')">
-                In Progress
-              </button>
+      <div class="column status">
+        [[ status ]]
+        <ul>
+          <template v-for="(task, index) in tasks">
+            <template v-if="task['status'] == status">
+              <li class="taskCard">
+                <div v-if="status == 'New'">
+                  [[ task['name'] ]]
+                  <button @click="updateStatus(index, 'In Progress')">
+                    In Progress
+                  </button>
+                  <button @click="updateStatus(index, 'Blocked')">
+                    Blocked
+                  </button>
+                  <button @click="deleteTask(index)">Delete</button>
+                </div>
+                <div v-else-if="status == 'In Progress'">
+                  [[ task['name'] ]]
+                  <button @click="updateStatus(index, 'Done')">
+                    Done
+                  </button>
+                  <button @click="updateStatus(index, 'Blocked')">
+                    Blocked
+                  </button>
+                  <button @click="deleteTask(index)">Delete</button>
+                </div>
+                <div v-else-if="status == 'Blocked'">
+                  [[ task['name'] ]]
+                  <button @click="updateStatus(index, 'In Progress')">
+                    In Progress
+                  </button>
+                  <button @click="deleteTask(index)">Delete</button>
+                </div>
+                <div v-else>
+                  [[ task['name'] ]]
+                </div>
+              </li>
             </template>
-            <template v-else-if="status == 'In Progress'">
-              <button v-on:click="updateStatus(index, 'Done')">
-                Done
-              </button>
-            </template>
-            <button v-on:click="deleteTask(index)">Delete</button>
-          </li>
+          </template>
         </ul>
       </div>
     </template>

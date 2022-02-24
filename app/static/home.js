@@ -8,6 +8,8 @@ home = new Vue({
   data: {
     user_id: null,
     task: null,
+    clientX: null,
+    clientY: null,
     tasks: []
   },
   methods: {

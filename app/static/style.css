@@ -1,5 +1,14 @@
-.column {
-    border-color: blue;
-    border-radius: 10px;
-    background-color: aquamarine;
+.status {
+    background-color: #3c3c3c;
+    min-height: 500px;
+    border: solid;
+    border-color: black;
+    color: white;
+}
+
+.taskCard {
+    background-color: #616161;
+    color: white;
+    border: dotted;
+    border-color: indigo;
 }
