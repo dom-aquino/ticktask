@@ -6,48 +6,49 @@
   </div>
   <div class="columns">
     <template v-for="status in ['New', 'In Progress', 'Blocked', 'Done']">
-      <div class="column status">
+      <div class="column status" :id="status">
         [[ status ]]
         <ul>
           <template v-for="(task, index) in tasks">
             <template v-if="task['status'] == status">
-              <li class="taskCard">
-                <div v-if="status == 'New'">
-                  [[ task['name'] ]]
-                  <button @click="updateStatus(index, 'In Progress')">
-                    In Progress
-                  </button>
-                  <button @click="updateStatus(index, 'Blocked')">
-                    Blocked
-                  </button>
-                  <button @click="deleteTask(index)">Delete</button>
-                </div>
-                <div v-else-if="status == 'In Progress'">
-                  [[ task['name'] ]]
-                  <button @click="updateStatus(index, 'Done')">
-                    Done
-                  </button>
-                  <button @click="updateStatus(index, 'Blocked')">
-                    Blocked
-                  </button>
-                  <button @click="deleteTask(index)">Delete</button>
-                </div>
-                <div v-else-if="status == 'Blocked'">
-                  [[ task['name'] ]]
-                  <button @click="updateStatus(index, 'In Progress')">
-                    In Progress
-                  </button>
-                  <button @click="deleteTask(index)">Delete</button>
-                </div>
-                <div v-else>
-                  [[ task['name'] ]]
-                </div>
-              </li>
+              <div class="taskCard">
+                <li>
+                  <div v-text="task['name']" v-if="status == 'New'">
+                    <button @click="updateStatus(index, 'In Progress')">
+                      In Progress
+                    </button>
+                    <button @click="updateStatus(index, 'Blocked')">
+                      Blocked
+                    </button>
+                    <button @click="deleteTask(index)">Delete</button>
+                  </div>
+                  <div v-text="task['name']"v-else-if="status == 'In Progress'">
+                    <button @click="updateStatus(index, 'Done')">
+                      Done
+                    </button>
+                    <button @click="updateStatus(index, 'Blocked')">
+                      Blocked
+                    </button>
+                    <button @click="deleteTask(index)">Delete</button>
+                  </div>
+                  <div v-text="task['name']" v-else-if="status == 'Blocked'">
+                    <button @click="updateStatus(index, 'In Progress')">
+                      In Progress
+                    </button>
+                    <button @click="deleteTask(index)">Delete</button>
+                  </div>
+                  <div v-text="task['name']" v-else></div>
+                </li>
+              </div>
             </template>
           </template>
         </ul>
       </div>
     </template>
+  </div>
+  <div id="myBox" @mousedown="onMouseDown" @mouseup="removeMoveListener"
+      @mouseleave="removeMoveListener">
+    This is my box.
   </div>
 {% endblock %}
 

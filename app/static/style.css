@@ -11,4 +11,25 @@
     color: white;
     border: dotted;
     border-color: indigo;
+    position: relative;
+}
+
+#myBox {
+    background-color: red;
+    max-width: 100px;
+    min-height: 100px;
+}
+
+#myNewBox {
+    background-color: green;
+    max-width: 100px;
+    min-height: 100px;
+    position: relative;
+}
+
+#myInProgressBox {
+    background-color: yellow;
+    max-width: 100px;
+    min-height: 100px;
+    position: relative;
 }
