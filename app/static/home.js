@@ -4,16 +4,18 @@ home = new Vue({
   mounted() {
     this.getCurrentUser();
     this.getTasks();
+    this.calculateColumnBounds();
     window.addEventListener('mousemove', function(event) {
       console.log("Client X:", event.clientX);
       console.log("Client Y:", event.clientY);
     });
-    window.addEventListener('mouseup', this.removeMoveListener);
   },
+
   data: {
     user_id: null,
     task: null,
-    tasks: []
+    tasks: [],
+    columnBounds: []
   },
   methods: {
     getCurrentUser() {
@@ -85,51 +87,69 @@ home = new Vue({
         }
       })
     },
-    onMouseDown(event) {
+    onMouseDown(event, index) {
       let onMouseDownX = event.clientX;
       let onMouseDownY = event.clientY;
       let boundingRect = event.target.getBoundingClientRect();
 
-      let newCol = document.getElementById("New");
-      let newRect = newCol.getBoundingClientRect();
-      let inProgressCol = document.getElementById("In Progress");
-      let inProgressRect = inProgressCol.getBoundingClientRect();
-
-      event.target.style.position = 'absolute';
-      event.target.addEventListener('mousemove', this.onMouseMove);
       event.target.boundingRectX = boundingRect.left;
       event.target.boundingRectY = boundingRect.top;
       event.target.onMouseDownX = onMouseDownX;
       event.target.onMouseDownY = onMouseDownY;
-      event.target.newRect = newRect;
-      event.target.inProgressRect = inProgressRect;
-
-      console.log("New Rect Left:", newRect.left);
-      console.log("New Rect Right:", newRect.right);
-      console.log("In Progress Rect Left:", inProgressRect.left);
-      console.log("In Progress Rect Right:", inProgressRect.right);
+      event.target.index = index;
+      event.target.addEventListener('mousemove', this.onMouseMove);
+      event.target.addEventListener('mouseup', this.removeMoveListener);
     },
     onMouseMove(event) {
       let onMouseMoveX = event.clientX;
       let onMouseMoveY = event.clientY;
+      event.target.style.position = 'absolute';
       event.target.style.left = (event.target.boundingRectX + onMouseMoveX
-                                 - event.target.onMouseDownX + 'px');;
+                                 - event.target.onMouseDownX + 'px');
       event.target.style.top = (event.target.boundingRectY + onMouseMoveY
-                                 - event.target.onMouseDownY - 95 + 'px');
-      console.log("Mouse Move X:", onMouseMoveX);
-      if ((event.target.newRect.left < onMouseMoveX) && (onMouseMoveX < event.target.newRect.right)) {
-        event.target.style.background = "blue";
-      }
-      else if ((event.target.inProgressRect.left < onMouseMoveX) && (onMouseMoveX < event.target.inProgressRect.right)) {
-        event.target.style.background = "yellow";
-      }
-      else {
-        event.target.style.background = "black";
-      }
+                                - event.target.onMouseDownY - 95 + 'px');
     },
     removeMoveListener(event) {
-      box = document.getElementById("myBox");
-      box.removeEventListener('mousemove', this.onMouseMove);
+      event.target.removeEventListener('mousemove', this.onMouseMove);
+      console.log(this.columnBounds[0][0]);
+      console.log(this.columnBounds[0][1]);
+      console.log(event.target.index);
+      console.log(event.target.boundingRectX);
+      if ((this.columnBounds[0][0] < event.clientX) &&
+          (this.columnBounds[0][1] > event.clientX) &&
+          (this.tasks[event.target.index] != "New"))
+      {
+        console.log("Updating to new..");
+        this.updateStatus(event.target.index, "New");
+      }
+      else if ((this.columnBounds[1][0] < event.clientX) &&
+               (this.columnBounds[1][1] > event.clientX) &&
+               (this.tasks[event.target.index] != "In Progress"))
+      {
+        this.updateStatus(event.target.index, "In Progress");
+      }
+      else if ((this.columnBounds[2][0] < event.clientX) &&
+               (this.columnBounds[2][1] > event.clientX) &&
+               (this.tasks[event.target.index] != "Blocked"))
+      {
+        this.updateStatus(event.target.index, "Blocked");
+      }
+      else if ((this.columnBounds[3][0] < event.clientX) &&
+               (this.columnBounds[3][1] > event.clientX) &&
+               (this.tasks[event.target.index] != "Done"))
+      {
+        this.updateStatus(event.target.index, "Done");
+      }
+    },
+    calculateColumnBounds() {
+      let columnNames = ["New", "In Progress", "Blocked", "Done"];
+      for (i = 0; i < columnNames.length; ++i) {
+        element = document.getElementById(columnNames[i]);
+        elementRect = element.getBoundingClientRect();
+        bounds = [elementRect.left, elementRect.right,
+                  elementRect.top, elementRect.bottom];
+        this.columnBounds.push(bounds);
+      }
     }
   }
 })

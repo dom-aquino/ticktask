@@ -12,6 +12,7 @@
     border: dotted;
     border-color: indigo;
     position: relative;
+    min-height: 50px;
 }
 
 #myBox {
