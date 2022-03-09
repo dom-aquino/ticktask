@@ -11,10 +11,7 @@
         <ul>
           <template v-for="(task, index) in tasks">
             <template v-if="task['status'] == status">
-              <li class="taskCard"
-                  @mousedown="onMouseDown($event, index)"
-                  @mouseup="removeMoveListener"
-                  @mouseleave="removeMoveListener">
+              <li class="taskCard" @mousedown="onMouseDown($event, index)">
                 <template v-if="status == 'New'">
                   [[ task['name'] ]]
                   <button @click="updateStatus(index, 'In Progress')">
@@ -51,9 +48,6 @@
         </ul>
       </div>
     </template>
-  </div>
-  <div>
-    [[ columnBounds ]]
   </div>
 {% endblock %}
 

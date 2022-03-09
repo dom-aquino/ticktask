@@ -98,7 +98,6 @@ home = new Vue({
       event.target.onMouseDownY = onMouseDownY;
       event.target.index = index;
       event.target.addEventListener('mousemove', this.onMouseMove);
-      event.target.addEventListener('mouseup', this.removeMoveListener);
     },
     onMouseMove(event) {
       let onMouseMoveX = event.clientX;
@@ -108,18 +107,17 @@ home = new Vue({
                                  - event.target.onMouseDownX + 'px');
       event.target.style.top = (event.target.boundingRectY + onMouseMoveY
                                 - event.target.onMouseDownY - 95 + 'px');
+      event.target.addEventListener('mouseup', this.removeMoveListener);
+      event.target.addEventListener('mouseleave', this.removeMoveListener);
     },
     removeMoveListener(event) {
       event.target.removeEventListener('mousemove', this.onMouseMove);
-      console.log(this.columnBounds[0][0]);
-      console.log(this.columnBounds[0][1]);
-      console.log(event.target.index);
-      console.log(event.target.boundingRectX);
+      event.target.removeEventListener('mouseup', this.onMouseMove);
+      event.target.removeEventListener('mouseleave', this.onMouseMove);
       if ((this.columnBounds[0][0] < event.clientX) &&
           (this.columnBounds[0][1] > event.clientX) &&
           (this.tasks[event.target.index] != "New"))
       {
-        console.log("Updating to new..");
         this.updateStatus(event.target.index, "New");
       }
       else if ((this.columnBounds[1][0] < event.clientX) &&
