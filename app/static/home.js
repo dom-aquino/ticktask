@@ -107,34 +107,35 @@ home = new Vue({
                                  - event.target.onMouseDownX + 'px');
       event.target.style.top = (event.target.boundingRectY + onMouseMoveY
                                 - event.target.onMouseDownY - 95 + 'px');
-      event.target.addEventListener('mouseup', this.removeMoveListener);
-      event.target.addEventListener('mouseleave', this.removeMoveListener);
+      event.target.addEventListener('mouseup', this.cleanUpListeners);
+      event.target.addEventListener('mouseleave', this.cleanUpListeners);
     },
-    removeMoveListener(event) {
+    cleanUpListeners(event) {
       event.target.removeEventListener('mousemove', this.onMouseMove);
       event.target.removeEventListener('mouseup', this.onMouseMove);
       event.target.removeEventListener('mouseleave', this.onMouseMove);
+      console.log("Current status:", this.tasks[event.target.index]['status']);
       if ((this.columnBounds[0][0] < event.clientX) &&
           (this.columnBounds[0][1] > event.clientX) &&
-          (this.tasks[event.target.index] != "New"))
+          (this.tasks[event.target.index]['status'] != "New"))
       {
         this.updateStatus(event.target.index, "New");
       }
       else if ((this.columnBounds[1][0] < event.clientX) &&
                (this.columnBounds[1][1] > event.clientX) &&
-               (this.tasks[event.target.index] != "In Progress"))
+               (this.tasks[event.target.index]['status'] != "In Progress"))
       {
         this.updateStatus(event.target.index, "In Progress");
       }
       else if ((this.columnBounds[2][0] < event.clientX) &&
                (this.columnBounds[2][1] > event.clientX) &&
-               (this.tasks[event.target.index] != "Blocked"))
+               (this.tasks[event.target.index]['status'] != "Blocked"))
       {
         this.updateStatus(event.target.index, "Blocked");
       }
       else if ((this.columnBounds[3][0] < event.clientX) &&
                (this.columnBounds[3][1] > event.clientX) &&
-               (this.tasks[event.target.index] != "Done"))
+               (this.tasks[event.target.index]['status'] != "Done"))
       {
         this.updateStatus(event.target.index, "Done");
       }

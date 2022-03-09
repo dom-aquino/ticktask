@@ -12,35 +12,8 @@
           <template v-for="(task, index) in tasks">
             <template v-if="task['status'] == status">
               <li class="taskCard" @mousedown="onMouseDown($event, index)">
-                <template v-if="status == 'New'">
-                  [[ task['name'] ]]
-                  <button @click="updateStatus(index, 'In Progress')">
-                    In Progress
-                  </button>
-                  <button @click="updateStatus(index, 'Blocked')">
-                    Blocked
-                  </button>
-                  <button @click="deleteTask(index)">Delete</button>
-                </template>
-                <template v-else-if="status == 'In Progress'">
-                  [[ task['name'] ]]
-                  <button @click="updateStatus(index, 'Done')">
-                    Done
-                  </button>
-                  <button @click="updateStatus(index, 'Blocked')">
-                    Blocked
-                  </button>
-                  <button @click="deleteTask(index)">Delete</button>
-                </template>
-                <template v-else-if="status == 'Blocked'">
-                  [[ task['name'] ]]
-                  <button @click="updateStatus(index, 'In Progress')">
-                    In Progress
-                  </button>
-                  <button @click="deleteTask(index)">Delete</button>
-                </template>
-                <template v-else>
-                  [[ task['name'] ]]
+                [[ task['name'] ]]
+                <button @click="deleteTask(index)">Delete</button>
                 </template>
               </li>
             </template>
