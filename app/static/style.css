@@ -11,8 +11,7 @@
     color: white;
     border: dotted;
     border-color: indigo;
-    position: static;
-    min-height: 50px;
+    min-height: 100px;
     min-width: 315px;
 }
 

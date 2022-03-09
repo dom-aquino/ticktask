@@ -10,7 +10,6 @@ home = new Vue({
       console.log("Client Y:", event.clientY);
     });
   },
-
   data: {
     user_id: null,
     task: null,
@@ -114,7 +113,6 @@ home = new Vue({
       event.target.removeEventListener('mousemove', this.onMouseMove);
       event.target.removeEventListener('mouseup', this.onMouseMove);
       event.target.removeEventListener('mouseleave', this.onMouseMove);
-      console.log("Current status:", this.tasks[event.target.index]['status']);
       if ((this.columnBounds[0][0] < event.clientX) &&
           (this.columnBounds[0][1] > event.clientX) &&
           (this.tasks[event.target.index]['status'] != "New"))

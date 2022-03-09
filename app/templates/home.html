@@ -11,8 +11,9 @@
         <ul>
           <template v-for="(task, index) in tasks">
             <template v-if="task['status'] == status">
-              <li class="taskCard" @mousedown="onMouseDown($event, index)">
+              <li class="taskCard" @mousedown.stop="onMouseDown($event, index)">
                 [[ task['name'] ]]
+                <button @click="editTask(index)">Edit</button>
                 <button @click="deleteTask(index)">Delete</button>
                 </template>
               </li>
