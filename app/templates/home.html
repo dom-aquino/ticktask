@@ -1,18 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="buttons">
-    <b-button label="New Task" type="is-dark" @click="addTask"></b-button>
-  </div>
   <div class="columns">
-    <template v-for="status in ['New', 'In Progress', 'Blocked', 'Done']">
+    <template v-for="status in statuses">
       <div class="column">
         <div class="statusName">
           [[ status ]]
         </div>
         <div class="status" :id="status">
           <ul>
-            <template v-for="(task, index) in tasks" :key="task.name">
+            <div v-for="(task, index) in tasks" :key="task.name">
               <template v-if="task['status'] == status">
                 <li class="taskCard"
                     @mousedown.stop="onMouseDown($event, index)">
@@ -20,8 +17,19 @@
                   <button @click="deleteTask(index)">Delete</button>
                 </li>
               </template>
-            </template>
+            </div>
           </ul>
+          <div class="inputNewTask" v-if="status == 'New'">
+            <b-field>
+              <b-input v-model="task"
+                placeholder="Please enter a task name...">
+              </b-input>
+            </b-field>
+            <div class="buttons">
+              <b-button label="Add Task" type="is-primary" @click="addTask">
+              </b-button>
+            </div>
+          </div>
         </div>
       </div>
     </template>

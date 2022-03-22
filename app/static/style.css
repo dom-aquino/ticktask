@@ -13,6 +13,11 @@
     text-align: center;
 }
 
+.inputNewTask {
+  padding: 5px;
+  background-color: #616161;
+}
+
 .taskCard {
     background-color: #616161;
     color: white;

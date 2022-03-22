@@ -5,16 +5,17 @@ home = new Vue({
     this.getCurrentUser();
     this.getTasks();
     this.calculateColumnBounds();
-    window.addEventListener('mousemove', function(event) {
-      console.log("Client X:", event.clientX);
-      console.log("Client Y:", event.clientY);
-    });
+//    window.addEventListener('mousemove', function(event) {
+//      console.log("Client X:", event.clientX);
+//      console.log("Client Y:", event.clientY);
+//    });
   },
   data: {
     user_id: null,
     task: null,
     tasks: [],
-    columnBounds: []
+    columnBounds: [],
+    statuses: ['New', 'In Progress', 'Blocked', 'Done']
   },
   methods: {
     getCurrentUser() {
@@ -30,29 +31,17 @@ home = new Vue({
       })
     },
     addTask() {
-      this.$buefy.dialog.prompt({
-        message: "Task Name",
-        inputAttrs: {
-          placeholder: 'Enter a task name',
-          maxlength: 128,
-        },
-        trapFocus: true,
-        onConfirm: (task) => {
-          if (task != null) {
-            axios({
-              method: 'post',
-              url: '/api/tasks/add',
-              data: {
-                'task': task
-              }
-            })
-            .then(response => {
-              if (response.data['status'] == "success") {
-                this.tasks.push({name: task, status: "New"});
-                task = null;
-              }
-            })
-          }
+      axios({
+        method: 'post',
+        url: '/api/tasks/add',
+        data: {
+          'task': this.task
+        }
+      })
+      .then(response => {
+        if (response.data['status'] == "success") {
+          this.tasks.push({name: this.task, status: "New"});
+          this.task = null;
         }
       })
     },
