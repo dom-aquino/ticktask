@@ -6,20 +6,23 @@
   </div>
   <div class="columns">
     <template v-for="status in ['New', 'In Progress', 'Blocked', 'Done']">
-      <div class="column status" :id="status">
-        [[ status ]]
-        <ul>
-          <template v-for="(task, index) in tasks">
-            <template v-if="task['status'] == status">
-              <li class="taskCard" @mousedown.stop="onMouseDown($event, index)">
-                [[ task['name'] ]]
-                <button @click="editTask(index)">Edit</button>
-                <button @click="deleteTask(index)">Delete</button>
-                </template>
-              </li>
+      <div class="column">
+        <div class="statusName">
+          [[ status ]]
+        </div>
+        <div class="status" :id="status">
+          <ul>
+            <template v-for="(task, index) in tasks" :key="task.name">
+              <template v-if="task['status'] == status">
+                <li class="taskCard"
+                    @mousedown.stop="onMouseDown($event, index)">
+                  [[ task['name'] ]]
+                  <button @click="deleteTask(index)">Delete</button>
+                </li>
+              </template>
             </template>
-          </template>
-        </ul>
+          </ul>
+        </div>
       </div>
     </template>
   </div>

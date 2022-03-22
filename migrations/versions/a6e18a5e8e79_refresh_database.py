@@ -1,8 +1,8 @@
-"""Add user and task table
+"""refresh database
 
-Revision ID: 1ce2dd5d0f65
+Revision ID: a6e18a5e8e79
 Revises: 
-Create Date: 2022-02-16 17:03:15.618102
+Create Date: 2022-03-18 10:35:42.528006
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1ce2dd5d0f65'
+revision = 'a6e18a5e8e79'
 down_revision = None
 branch_labels = None
 depends_on = None

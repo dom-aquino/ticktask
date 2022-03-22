@@ -101,6 +101,7 @@ home = new Vue({
     onMouseMove(event) {
       let onMouseMoveX = event.clientX;
       let onMouseMoveY = event.clientY;
+
       event.target.style.position = 'absolute';
       event.target.style.left = (event.target.boundingRectX + onMouseMoveX
                                  - event.target.onMouseDownX + 'px');
