@@ -21,28 +21,17 @@
 .taskCard {
     background-color: #616161;
     color: white;
-    border: dotted;
-    border-color: indigo;
     min-height: 100px;
     min-width: 315px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
 }
 
-#myBox {
-    background-color: red;
-    max-width: 100px;
-    min-height: 100px;
-}
-
-#myNewBox {
-    background-color: green;
-    max-width: 100px;
-    min-height: 100px;
-    position: relative;
-}
-
-#myInProgressBox {
-    background-color: yellow;
-    max-width: 100px;
-    min-height: 100px;
-    position: relative;
+.placeholderDiv {
+    background-color: #616161;
+    color: white;
+    min-height: 50px;
+    min-width: 315px;
 }

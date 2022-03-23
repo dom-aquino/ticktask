@@ -31,19 +31,21 @@ home = new Vue({
       })
     },
     addTask() {
-      axios({
-        method: 'post',
-        url: '/api/tasks/add',
-        data: {
-          'task': this.task
-        }
-      })
-      .then(response => {
-        if (response.data['status'] == "success") {
-          this.tasks.push({name: this.task, status: "New"});
-          this.task = null;
-        }
-      })
+      if (this.task != null) {
+        axios({
+          method: 'post',
+          url: '/api/tasks/add',
+          data: {
+            'task': this.task
+          }
+        })
+        .then(response => {
+          if (response.data['status'] == "success") {
+            this.tasks.push({name: this.task, status: "New"});
+            this.task = null;
+          }
+        })
+      }
     },
     deleteTask(index) {
       axios({
