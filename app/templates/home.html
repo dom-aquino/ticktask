@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="columns">
+  <div class="columns mt-1">
     <template v-for="status in statuses">
       <div class="column">
         <div class="statusName">
@@ -11,10 +11,8 @@
           <ul>
             <template v-for="(task, index) in tasks">
               <template v-if="task['status'] == status">
-                <li class="taskCard"
-                    @mousedown.stop="onMouseDown($event, index)">
-                  [[ task['name'] ]]
-                  <button @click="deleteTask(index)">Delete</button>
+                <li v-text="task['name']" class="taskCard mb-1"
+                  @mousedown.stop="onMouseDown($event, index)">
                 </li>
               </template>
             </template>

@@ -5,10 +5,6 @@ home = new Vue({
     this.getCurrentUser();
     this.getTasks();
     this.calculateColumnBounds();
-//    window.addEventListener('mousemove', function(event) {
-//      console.log("Client X:", event.clientX);
-//      console.log("Client Y:", event.clientY);
-//    });
   },
   data: {
     user_id: null,
@@ -97,7 +93,7 @@ home = new Vue({
       event.target.style.left = (event.target.boundingRectX + onMouseMoveX
                                  - event.target.onMouseDownX + 'px');
       event.target.style.top = (event.target.boundingRectY + onMouseMoveY
-                                - event.target.onMouseDownY - 95 + 'px');
+                                - event.target.onMouseDownY - 50 + 'px');
       event.target.addEventListener('mouseup', this.cleanUpListeners);
       event.target.addEventListener('mouseleave', this.cleanUpListeners);
     },

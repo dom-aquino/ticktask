@@ -1,13 +1,10 @@
 .status {
     background-color: #3c3c3c;
-    min-height: 500px;
-    border: solid;
-    border-color: black;
     color: white;
 }
 
 .statusName {
-    background-color: darkorange;
+    background-color:#714dd2;
     font-size: 24px;
     color: white;
     text-align: center;
@@ -23,15 +20,11 @@
     color: white;
     min-height: 100px;
     min-width: 315px;
-    margin-bottom: 10px;
-    border-radius: 15px;
     display: flex;
     align-items: center;
 }
 
-.placeholderDiv {
-    background-color: #616161;
-    color: white;
-    min-height: 50px;
-    min-width: 315px;
+html, body {
+    margin: 0;
+    height: 100%;
 }
