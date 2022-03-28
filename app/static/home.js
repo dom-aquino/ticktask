@@ -9,9 +9,12 @@ home = new Vue({
   data: {
     user_id: null,
     task: null,
+    subtask: null,
     tasks: [],
+    subtasks: [],
     columnBounds: [],
-    statuses: ['New', 'In Progress', 'Blocked', 'Done']
+    statuses: ['New', 'In Progress', 'Blocked', 'Done'],
+    isModalActive: false,
   },
   methods: {
     getCurrentUser() {
@@ -136,6 +139,13 @@ home = new Vue({
                   elementRect.top, elementRect.bottom];
         this.columnBounds.push(bounds);
       }
+    },
+    showTaskInfo(index) {
+      console.log("Showing task info");
+      this.isModalActive = true;
+    },
+    addSubtask() {
+      this.subtasks.push(this.subtask);
     }
   }
 })

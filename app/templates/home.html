@@ -11,8 +11,14 @@
           <ul>
             <template v-for="(task, index) in tasks">
               <template v-if="task['status'] == status">
-                <li v-text="task['name']" class="taskCard mb-1"
-                  @mousedown.stop="onMouseDown($event, index)">
+                <li class="taskCard mb-1"
+                    @mousedown.stop="onMouseDown($event, index)">
+                  <p class="ml-2 mr-3">[[ task['name'] ]]</p>
+                  <div class="buttons">
+                    <b-button label="Show Info" type="is-primary"
+                      @click="isModalActive=true">
+                    </b-button>
+                  </div>
                 </li>
               </template>
             </template>
@@ -30,6 +36,29 @@
           </div>
         </div>
       </div>
+      <p>Subtask: [[ subtasks ]]</p>
+      <b-modal v-model="isModalActive" type="is-primary" :width="640">
+        <div class="modal-card" style="width: auto">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Add Subtask</p>
+          </header>
+        </div>
+        <section class="modal-card-body">
+          <b-field>
+            <b-input
+              placeholder="Enter a subtask" v-model="subtask">
+            </b-input>
+            <b-button label="Add Subtask" type="is-primary"
+              @click="addSubtask">
+            </b-button>
+          </b-field>
+          <div v-for="task in subtasks">
+            <b-field>
+              <b-checkbox>[[ task ]]</b-checkbox>
+            </b-field>
+          </div>
+        </section>
+      </b-modal>
     </template>
   </div>
 {% endblock %}
