@@ -1,18 +1,18 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
 .status {
     background-color: #3c3c3c;
     color: white;
 }
 
 .statusName {
-    background-color:#714dd2;
+    background-color: #714dd2;
     font-size: 24px;
     color: white;
     text-align: center;
-}
-
-.inputNewTask {
-  padding: 5px;
-  background-color: #616161;
 }
 
 .taskCard {
@@ -24,7 +24,8 @@
     align-items: center;
 }
 
-html, body {
-    margin: 0;
-    height: 100%;
+.inputNewTask {
+  padding: 5px;
+  background-color: #616161;
 }
+

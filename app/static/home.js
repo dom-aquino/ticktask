@@ -84,6 +84,7 @@ home = new Vue({
       event.target.onMouseDownY = onMouseDownY;
       event.target.index = index;
       event.target.addEventListener('mousemove', this.onMouseMove);
+      event.target.addEventListener('mouseup', this.cleanUpListeners);
     },
     onMouseMove(event) {
       let onMouseMoveX = event.clientX;
