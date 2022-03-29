@@ -11,15 +11,24 @@
           <ul>
             <template v-for="(task, index) in tasks">
               <template v-if="task['status'] == status">
-                <li class="taskCard mb-1"
+                <div class="taskCard mb-1"
                     @mousedown.stop="onMouseDown($event, index)">
-                  <p class="ml-2 mr-3">[[ task['name'] ]]</p>
-                  <div class="buttons">
-                    <b-button label="Show Info" type="is-primary"
-                      @click="isModalActive=true">
-                    </b-button>
-                  </div>
-                </li>
+                  <li>
+                    <p class="ml-2 mb-2">[[ task['name'] ]]</p>
+                    <div class="buttons ml-2">
+                      <b-button label="Show Info" type="is-primary"
+                        size="is-small"
+                        @click.stop="isModalActive=true; currentTaskIndex=index"
+                        @mousedown.stop="isModalActive=false">
+                      </b-button>
+                      <b-button label="Delete" type="is-danger"
+                          size="is-small" @click.stop="deleteTask(index)"
+                          @mousedown.stop="">
+                        Delete
+                      </b-button>
+                    </div>
+                  </li>
+                </div>
               </template>
             </template>
           </ul>
@@ -36,7 +45,6 @@
           </div>
         </div>
       </div>
-      <p>Subtask: [[ subtasks ]]</p>
       <b-modal v-model="isModalActive" type="is-primary" :width="640">
         <div class="modal-card" style="width: auto">
           <header class="modal-card-head">
@@ -45,17 +53,21 @@
         </div>
         <section class="modal-card-body">
           <b-field>
-            <b-input
-              placeholder="Enter a subtask" v-model="subtask">
+            <b-input class="mr-2" placeholder="Enter a subtask"
+              v-model="subtask">
             </b-input>
             <b-button label="Add Subtask" type="is-primary"
-              @click="addSubtask">
+              @click="addSubtask(currentTaskIndex)">
             </b-button>
           </b-field>
-          <div v-for="task in subtasks">
-            <b-field>
-              <b-checkbox>[[ task ]]</b-checkbox>
-            </b-field>
+          <div v-for="task in tasks">
+            <div v-for="subtask in task['subtasks']">
+              <b-field>
+                <b-checkbox v-model="subtask.status">
+                  [[ subtask.name ]]
+                </b-checkbox>
+              </b-field>
+            </div>
           </div>
         </section>
       </b-modal>

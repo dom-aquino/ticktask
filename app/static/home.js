@@ -10,8 +10,8 @@ home = new Vue({
     user_id: null,
     task: null,
     subtask: null,
+    currentTaskIndex: null,
     tasks: [],
-    subtasks: [],
     columnBounds: [],
     statuses: ['New', 'In Progress', 'Blocked', 'Done'],
     isModalActive: false,
@@ -40,7 +40,8 @@ home = new Vue({
         })
         .then(response => {
           if (response.data['status'] == "success") {
-            this.tasks.push({name: this.task, status: "New"});
+            this.tasks.push({name: this.task, status: "New",
+                             subtasks: []});
             this.task = null;
           }
         })
@@ -140,12 +141,12 @@ home = new Vue({
         this.columnBounds.push(bounds);
       }
     },
-    showTaskInfo(index) {
-      console.log("Showing task info");
-      this.isModalActive = true;
+    addSubtask(index) {
+      this.tasks[index]['subtasks'].push({name: this.subtask, status: false});
+      this.subtask = null;
     },
-    addSubtask() {
-      this.subtasks.push(this.subtask);
+    resetIndex() {
+      this.currentTaskIndex = null;
     }
   }
 })
