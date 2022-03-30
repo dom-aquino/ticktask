@@ -87,12 +87,22 @@ home = new Vue({
       event.target.onMouseDownX = onMouseDownX;
       event.target.onMouseDownY = onMouseDownY;
       event.target.index = index;
+      event.target.isMoved = false;
       event.target.addEventListener('mousemove', this.onMouseMove);
       event.target.addEventListener('mouseup', this.cleanUpListeners);
     },
     onMouseMove(event) {
       let onMouseMoveX = event.clientX;
       let onMouseMoveY = event.clientY;
+
+      if (event.target.isMoved == false) {
+        let placeholder = document.createElement("div");
+        placeholder.className = "placeholderTaskCard";
+        placeholder.style.left = event.target.boundingRectX;
+        placeholder.style.top = event.target.boundingRectY;
+        event.target.parentNode.appendChild(placeholder);
+        event.target.isMoved = true;
+      }
 
       event.target.style.position = 'absolute';
       event.target.style.left = (event.target.boundingRectX + onMouseMoveX
@@ -103,6 +113,8 @@ home = new Vue({
       event.target.addEventListener('mouseleave', this.cleanUpListeners);
     },
     cleanUpListeners(event) {
+      let placeholder = document.querySelector(".placeholderTaskCard");
+      placeholder.remove();
       event.target.removeEventListener('mousemove', this.onMouseMove);
       event.target.removeEventListener('mouseup', this.onMouseMove);
       event.target.removeEventListener('mouseleave', this.onMouseMove);

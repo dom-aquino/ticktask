@@ -25,7 +25,25 @@ html, body {
 }
 
 .inputNewTask {
-  padding: 5px;
-  background-color: #616161;
+    padding: 5px;
+    background-color: #616161;
+}
+
+.placeholderTaskCard {
+    background-color: #616161;
+    color: white;
+    min-height: 100px;
+    min-width: 315px;
+    display: flex;
+    align-items: center;
+}
+
+.floatingTaskCard {
+    background-color: #616161;
+    color: white;
+    min-height: 100px;
+    min-width: 315px;
+    display: flex;
+    align-items: center;
 }
 

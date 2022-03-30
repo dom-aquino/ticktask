@@ -11,7 +11,7 @@
           <ul>
             <template v-for="(task, index) in tasks">
               <template v-if="task['status'] == status">
-                <div class="taskCard mb-1"
+                <div class="taskCard mb-1" :id="index"
                     @mousedown.stop="onMouseDown($event, index)">
                   <li>
                     <p class="ml-2 mb-2">[[ task['name'] ]]</p>
