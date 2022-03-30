@@ -144,9 +144,6 @@ home = new Vue({
     addSubtask(index) {
       this.tasks[index]['subtasks'].push({name: this.subtask, status: false});
       this.subtask = null;
-    },
-    resetIndex() {
-      this.currentTaskIndex = null;
     }
   }
 })

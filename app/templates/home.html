@@ -45,7 +45,8 @@
           </div>
         </div>
       </div>
-      <b-modal v-model="isModalActive" type="is-primary" :width="640">
+      <b-modal v-model="isModalActive" type="is-primary" :width="640"
+          @cancel="currentTaskIndex=null">
         <div class="modal-card" style="width: auto">
           <header class="modal-card-head">
             <p class="modal-card-title">Add Subtask</p>
@@ -60,17 +61,20 @@
               @click="addSubtask(currentTaskIndex)">
             </b-button>
           </b-field>
-          <div v-for="task in tasks">
-            <div v-for="subtask in task['subtasks']">
-              <b-field>
-                <b-checkbox v-model="subtask.status">
-                  [[ subtask.name ]]
-                </b-checkbox>
-              </b-field>
+          <div v-for="(task, index) in tasks">
+            <div v-if="index==currentTaskIndex">
+              <div v-for="subtask in task['subtasks']">
+                <b-field>
+                  <b-checkbox v-model="subtask.status">
+                    [[ subtask.name ]]
+                  </b-checkbox>
+                </b-field>
+              </div>
             </div>
           </div>
         </section>
       </b-modal>
+      Current index: [[ currentTaskIndex ]]
     </template>
   </div>
 {% endblock %}
