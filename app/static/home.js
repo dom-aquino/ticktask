@@ -114,7 +114,10 @@ home = new Vue({
     },
     cleanUpListeners(event) {
       let placeholder = document.querySelector(".placeholderTaskCard");
-      placeholder.remove();
+      if (placeholder)
+      {
+        placeholder.remove();
+      }
       event.target.removeEventListener('mousemove', this.onMouseMove);
       event.target.removeEventListener('mouseup', this.onMouseMove);
       event.target.removeEventListener('mouseleave', this.onMouseMove);

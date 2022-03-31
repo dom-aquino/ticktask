@@ -15,7 +15,7 @@
                     @mousedown.stop="onMouseDown($event, index)">
                   <li>
                     <p class="ml-2 mb-2">[[ task['name'] ]]</p>
-                    <div class="buttons ml-2">
+                    <div class="buttons ml-2 mb-1">
                       <b-button label="Show Info" type="is-primary"
                         size="is-small"
                         @click.stop="isModalActive=true; currentTaskIndex=index"
@@ -24,8 +24,12 @@
                       <b-button label="Delete" type="is-danger"
                           size="is-small" @click.stop="deleteTask(index)"
                           @mousedown.stop="">
-                        Delete
                       </b-button>
+                    </div>
+                    <div class="ml-2 mb-1">
+                      <b-progress :rounded=false :value=60 size="is-medium"
+                        type="is-primary" show-value>
+                      </b-progress>
                     </div>
                   </li>
                 </div>
