@@ -4,13 +4,12 @@
   <div class="columns mt-1">
     <template v-for="status in statuses">
       <div class="column">
-        <div class="statusName">
-          [[ status ]]
+        <div class="statusName" v-text="status">
         </div>
         <div class="status" :id="status">
           <ul>
             <template v-for="(task, index) in tasks">
-              <template v-if="task['status'] == status">
+              <template v-if="task['status']==status">
                 <div class="taskCard mb-1" :id="index"
                     @mousedown.stop="onMouseDown($event, index)">
                   <li>
@@ -22,12 +21,13 @@
                         @mousedown.stop="isModalActive=false">
                       </b-button>
                       <b-button label="Delete" type="is-danger"
-                          size="is-small" @click.stop="deleteTask(index)"
-                          @mousedown.stop="">
+                        size="is-small" @click.stop="deleteTask(index)"
+                        @mousedown.stop="">
                       </b-button>
                     </div>
                     <div class="ml-2 mb-1">
-                      <b-progress :rounded=false :value=60 size="is-medium"
+                      <b-progress :rounded=false :value="task['progress']"
+                        size="is-medium"
                         type="is-primary" show-value>
                       </b-progress>
                     </div>
@@ -36,7 +36,7 @@
               </template>
             </template>
           </ul>
-          <div class="inputNewTask" v-if="status == 'New'">
+          <div class="inputNewTask" v-if="status=='New'">
             <b-field>
               <b-input v-model="task"
                 placeholder="Please enter a task name...">
@@ -50,8 +50,8 @@
         </div>
       </div>
       <b-modal v-model="isModalActive" type="is-primary" :width="640"
-          @cancel="currentTaskIndex=null">
-        <div class="modal-card" style="width: auto">
+          @cancel="getProgress">
+        <div class="modal-card" style="width:auto">
           <header class="modal-card-head">
             <p class="modal-card-title">Add Subtask</p>
           </header>

@@ -41,7 +41,7 @@ home = new Vue({
         .then(response => {
           if (response.data['status'] == "success") {
             this.tasks.push({name: this.task, status: "New",
-                             subtasks: []});
+                             subtasks: [], progress: 0});
             this.task = null;
           }
         })
@@ -114,8 +114,7 @@ home = new Vue({
     },
     cleanUpListeners(event) {
       let placeholder = document.querySelector(".placeholderTaskCard");
-      if (placeholder)
-      {
+      if (placeholder) {
         placeholder.remove();
       }
       event.target.removeEventListener('mousemove', this.onMouseMove);
@@ -158,6 +157,20 @@ home = new Vue({
     addSubtask(index) {
       this.tasks[index]['subtasks'].push({name: this.subtask, status: false});
       this.subtask = null;
+    },
+    getProgress() {
+      if (this.currentTaskIndex != null) {
+        let subtasks = this.tasks[this.currentTaskIndex]['subtasks'];
+        let subtasksDone = 0;
+        for (const subtask of subtasks) {
+          if (subtask['status']) {
+            subtasksDone += 1;
+          }
+        }
+        let answer = (subtasksDone / subtasks.length) * 100;
+        this.tasks[this.currentTaskIndex]['progress'] = answer;
+      }
+      return 0;
     }
   }
 })
