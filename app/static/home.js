@@ -151,9 +151,8 @@ home = new Vue({
       for (i = 0; i < columnNames.length; ++i) {
         element = document.getElementById(columnNames[i]);
         elementRect = element.getBoundingClientRect();
-        bounds = [elementRect.left, elementRect.right,
-                  elementRect.top, elementRect.bottom];
-        this.columnBounds.push(bounds);
+        this.columnBounds.push([elementRect.left, elementRect.right,
+                                elementRect.top, elementRect.bottom]);
       }
     },
     addSubtask(index) {
