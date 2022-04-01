@@ -154,9 +154,23 @@ home = new Vue({
                                 elementRect.top, elementRect.bottom]);
       }
     },
-    addSubtask(index) {
-      this.tasks[index]['subtasks'].push({name: this.subtask, status: false});
-      this.subtask = null;
+    addSubtask() {
+      if (this.subtask != null) {
+        axios({
+          method: 'post',
+          url: '/api/subtasks/add',
+          data: {
+            'subtask': this.subtask,
+            'is_done': false,
+            'task_id': this.currentTaskIndex + 1
+          }
+        })
+        .then(response => {
+          this.tasks[this.currentTaskIndex]['subtasks'].push(
+            {task_name: this.subtask, status: false});
+          this.subtask = null;
+        })
+      }
     },
     calculateProgress() {
       if (this.currentTaskIndex != null) {

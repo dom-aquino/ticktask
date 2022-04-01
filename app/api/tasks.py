@@ -2,15 +2,17 @@ from flask import request
 from flask_login import login_required, current_user
 from app import db
 from app.api import bp
-from app.models import Task
+from app.models import Task, Subtask
 
 @bp.route("/users/<int:user_id>/tasks", methods=["GET"])
 @login_required
 def getTasks(user_id):
     tasks = list()
     for task in Task.query.filter_by(user_id=user_id).all():
+        subtasks = [{'task_name': subtask.task_name, 'status': subtask.status}
+            for subtask in Subtask.query.filter_by(task_id=task.id).all()]
         tasks.append({'name': task.task_name, 'status': task.status,
-                      'progress': task.progress})
+                      'progress': task.progress, 'subtasks': subtasks})
 
     return {'tasks': tasks}
 
@@ -48,4 +50,15 @@ def updateTask():
         return {"status": "success"}
     else:
         return {"status": "failed"}
+
+
+@bp.route("/subtasks/add", methods=["POST"])
+def addSubtask():
+    subtask = Subtask(task_name=request.json['subtask'],
+                      is_done=request.json['is_done'],
+                      task_id=request.json['task_id'])
+    db.session.add(subtask)
+    db.session.commit()
+
+    return {"status": "success"}
 

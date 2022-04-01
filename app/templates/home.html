@@ -62,7 +62,7 @@
               v-model="subtask">
             </b-input>
             <b-button label="Add Subtask" type="is-primary"
-              @click="addSubtask(currentTaskIndex)">
+              @click="addSubtask()">
             </b-button>
           </b-field>
           <div v-for="(task, index) in tasks">
@@ -70,7 +70,7 @@
               <div v-for="subtask in task['subtasks']">
                 <b-field>
                   <b-checkbox v-model="subtask.status">
-                    [[ subtask.name ]]
+                    [[ subtask.task_name ]]
                   </b-checkbox>
                 </b-field>
               </div>

@@ -31,7 +31,7 @@ class Task(db.Model):
 class Subtask(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     task_name = db.Column(db.String(64))
-    status = db.Column(db.String(8))
+    is_done = db.Column(db.Boolean, default=False, nullable=False)
     task_id = db.Column(db.Integer, db.ForeignKey('task.id'))
 
     def __repr__(self):
