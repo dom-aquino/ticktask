@@ -26,9 +26,9 @@
                       </b-button>
                     </div>
                     <div class="ml-2 mb-1">
-                      <b-progress :rounded=false :value="task['progress']"
-                        size="is-medium"
-                        type="is-primary" show-value>
+                      <b-progress :rounded=false :value="task['progress'] || 0"
+                        size="is-medium" type="is-primary" show-value
+                        :precision="0" format="percent">
                       </b-progress>
                     </div>
                   </li>
