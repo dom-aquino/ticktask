@@ -9,14 +9,15 @@ from app.models import Task
 def getTasks(user_id):
     tasks = list()
     for task in Task.query.filter_by(user_id=user_id).all():
-        tasks.append({'name': task.task_name, 'status': task.status})
+        tasks.append({'name': task.task_name, 'status': task.status,
+                      'progress': task.progress})
 
     return {'tasks': tasks}
 
 @bp.route("/tasks/add", methods=["POST"])
 @login_required
 def addTask():
-    task = Task(task_name=request.json['task'], status="New",
+    task = Task(task_name=request.json['task'], status="New", progress=0,
                 user_id=current_user.id)
     db.session.add(task)
     db.session.commit()

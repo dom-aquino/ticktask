@@ -158,7 +158,7 @@ home = new Vue({
       this.tasks[index]['subtasks'].push({name: this.subtask, status: false});
       this.subtask = null;
     },
-    getProgress() {
+    calculateProgress() {
       if (this.currentTaskIndex != null) {
         let subtasks = this.tasks[this.currentTaskIndex]['subtasks'];
         let subtasksDone = 0;

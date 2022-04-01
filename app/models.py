@@ -21,7 +21,18 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     task_name = db.Column(db.String(64))
     status = db.Column(db.String(8))
+    progress = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    subtasks = db.relationship('Subtask', backref='owner', lazy='dynamic')
+
+    def __repr__(self):
+        return "<Task {} | Status {}>".format(self.task_name, self.status)
+
+class Subtask(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    task_name = db.Column(db.String(64))
+    status = db.Column(db.String(8))
+    task_id = db.Column(db.Integer, db.ForeignKey('task.id'))
 
     def __repr__(self):
         return "<Task {} | Status {}>".format(self.task_name, self.status)
