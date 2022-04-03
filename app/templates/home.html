@@ -69,7 +69,7 @@
             <div v-if="index==currentTaskIndex">
               <div v-for="subtask in task['subtasks']">
                 <b-field>
-                  <b-checkbox v-model="subtask.status">
+                  <b-checkbox v-model="subtask.is_done">
                     [[ subtask.task_name ]]
                   </b-checkbox>
                 </b-field>

@@ -177,7 +177,7 @@ home = new Vue({
         let subtasks = this.tasks[this.currentTaskIndex]['subtasks'];
         let subtasksDone = 0;
         for (const subtask of subtasks) {
-          if (subtask['status']) {
+          if (subtask['is_done']) {
             subtasksDone += 1;
           }
         }

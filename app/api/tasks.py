@@ -9,8 +9,10 @@ from app.models import Task, Subtask
 def getTasks(user_id):
     tasks = list()
     for task in Task.query.filter_by(user_id=user_id).all():
-        subtasks = [{'task_name': subtask.task_name, 'status': subtask.status}
-            for subtask in Subtask.query.filter_by(task_id=task.id).all()]
+        subtasks = [
+            {'task_name': subtask.task_name, 'is_done': subtask.is_done}
+            for subtask in Subtask.query.filter_by(task_id=task.id).all()
+        ]
         tasks.append({'name': task.task_name, 'status': task.status,
                       'progress': task.progress, 'subtasks': subtasks})
 
