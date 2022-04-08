@@ -160,29 +160,46 @@ home = new Vue({
           method: 'post',
           url: '/api/subtasks/add',
           data: {
-            'subtask': this.subtask,
+            'task_name': this.subtask,
             'is_done': false,
             'task_id': this.currentTaskIndex + 1
           }
         })
         .then(response => {
-          this.tasks[this.currentTaskIndex]['subtasks'].push(
-            {task_name: this.subtask, status: false});
-          this.subtask = null;
+          if (response.data['status'] == "success") {
+            this.tasks[this.currentTaskIndex]['subtasks'].push(
+              {task_name: this.subtask, is_done: false});
+            this.subtask = null;
+          }
         })
       }
     },
     calculateProgress() {
       if (this.currentTaskIndex != null) {
         let subtasks = this.tasks[this.currentTaskIndex]['subtasks'];
-        let subtasksDone = 0;
-        for (const subtask of subtasks) {
-          if (subtask['is_done']) {
-            subtasksDone += 1;
+        if (subtasks) {
+          let subtasksDone = 0;
+          for (const subtask of subtasks) {
+            if (subtask['is_done']) {
+              subtasksDone += 1;
+            }
           }
+          let progress = (subtasksDone / subtasks.length) * 100;
+          axios({
+            method: 'put',
+            url: '/api/subtasks/update',
+            data: {
+              'task_id': this.currentTaskIndex + 1,
+              'subtasks': subtasks,
+              'progress': progress
+            }
+          })
+          .then(response => {
+            if (response.data['status'] == "success") {
+              this.tasks[this.currentTaskIndex]['progress'] = progress;
+            }
+          })
         }
-        let answer = (subtasksDone / subtasks.length) * 100;
-        this.tasks[this.currentTaskIndex]['progress'] = answer;
       }
       return 0;
     }

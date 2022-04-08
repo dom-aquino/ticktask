@@ -56,11 +56,28 @@ def updateTask():
 
 @bp.route("/subtasks/add", methods=["POST"])
 def addSubtask():
-    subtask = Subtask(task_name=request.json['subtask'],
+    subtask = Subtask(task_name=request.json['task_name'],
                       is_done=request.json['is_done'],
                       task_id=request.json['task_id'])
     db.session.add(subtask)
     db.session.commit()
 
+    return {"status": "success"}
+
+
+@bp.route("/subtasks/update", methods=["PUT"])
+def updateSubtask():
+    task_id = request.json['task_id']
+    task = Task.query.filter_by(id=task_id).first()
+    if task:
+        task.progress = request.json['progress']
+
+    for subtask in request.json['subtasks']:
+        currentSubtask = Subtask.query.filter_by(
+            task_name=subtask['task_name'], task_id=task_id).first()
+        if currentSubtask:
+            currentSubtask.is_done = subtask['is_done']
+
+    db.session.commit()
     return {"status": "success"}
 
